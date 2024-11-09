@@ -1,3 +1,14 @@
+import streamlit as st
+# Page layout
+## Page expands to full width
+st.set_page_config(
+    page_title='Solar Panels Detection',
+    # anatomical heart favicon
+    page_icon="https://api.iconify.design/openmoji/solar-energy.svg?width=500",
+    layout='wide'
+)
+
+
 import gc
 import os
 import torch
@@ -9,7 +20,8 @@ from utils import *
 # ---------------------------------#
 # Data preprocessing and Model building
 
-@st.cache(allow_output_mutation=True)
+
+#@st.cache(allow_output_mutation=True)
 def mask_read_local(gt_mask_dir):
     gt_mask = cv2.imread(gt_mask_dir, cv2.IMREAD_GRAYSCALE)
     gt_mask = cv2.threshold(gt_mask, 0, 255, cv2.THRESH_BINARY)[1]
@@ -17,7 +29,7 @@ def mask_read_local(gt_mask_dir):
     return gt_mask
 
 
-@st.cache(allow_output_mutation=True)
+#@st.cache(allow_output_mutation=True)
 def mask_read_uploaded(uploaded_mask):
     file_bytes = np.asarray(bytearray(uploaded_mask.read()), dtype=np.uint8)
     uploaded_mask = cv2.imdecode(file_bytes, 1)
@@ -27,7 +39,7 @@ def mask_read_uploaded(uploaded_mask):
     return uploaded_mask
 
 
-@st.cache(allow_output_mutation=True)
+#@st.cache(allow_output_mutation=True)
 def show_detection(image, pred_mask):
     """
 
@@ -44,7 +56,7 @@ def show_detection(image, pred_mask):
     return result
 
 
-@st.cache(allow_output_mutation=True)
+#@st.cache(allow_output_mutation=True)
 def imgread_preprocessing(uploaded_img):  # final preprocessing function in streamlit
     # read data
     # CLASSES = ['solar_panel']
@@ -76,14 +88,9 @@ def imgread_preprocessing(uploaded_img):  # final preprocessing function in stre
     return image
 
 # ---------------------------------#
-# Page layout
-## Page expands to full width
-st.set_page_config(
-    page_title='Solar Panels Detection',
-    # anatomical heart favicon
-    page_icon="https://api.iconify.design/openmoji/solar-energy.svg?width=500",
-    layout='wide'
-)
+
+
+
 
 # PAge Intro
 st.write("""
@@ -131,7 +138,7 @@ st.sidebar.markdown("")
 img_dir = 'data'
 img_files = list(filter(lambda x: 'label' not in x, os.listdir(img_dir)))
 
-model_dir = '../models'
+model_dir = '/content/drive/MyDrive/Deep-Learning-for-Solar-Panel-Recognition/src/models'
 models = {
     ' + '.join(get_model_info(model)[:2]).upper():
         {'ARCH': get_model_info(model)[0],
@@ -176,25 +183,19 @@ with st.sidebar.subheader('Select the model you want to use for prediction'):
         model_options
     )
     model = models[model_sel]
+    #st.write(model)
     model_path = model['PATH']
+    #st.write(model_path)
     ARCH = model['ARCH']
     BACKBONE = model['BACKBONE']
+    # if BACKBONE == "se_resnext101":
+    #   BACKBONE = BACKBONE + "_32x4d"
     DEVICE = 'cpu'
     preprocess_input = smp.encoders.get_preprocessing_fn(BACKBONE)
 
 ######
 
-st.sidebar.markdown("""
-###
-### Developers:
-
-- Sergio Aizcorbe Pardo
-- Ricardo Chavez Torres
-- Daniel De Las Cuevas Turel
-- Sergio Hidalgo López
-- Zijun He
-
-""")
+# 
 
 # ---------------------------------#
 # Main panel
