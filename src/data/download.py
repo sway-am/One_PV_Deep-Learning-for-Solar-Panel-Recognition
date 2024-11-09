@@ -13,8 +13,8 @@ def download_sent2(folder):
     api.download('342c57d0-bde8-4391-90f6-a4192ba47a14', folder)
 
 
-def download_gmaps_api(places, folder='../../data'):
-    GMAPS_KEY = os.environ.get('GMAPS_KEY')
+def download_gmaps_api(places, folder='/content/drive/MyDrive/Deep-Learning-for-Solar-Panel-Recognition/src/data'):
+    GMAPS_KEY = 'AIzaSyDwPAG5Yc1-LZyyOUp55LTROmfZlRtG2jM'
 
     gmaps = GoogleMapsAPIDownloader(GMAPS_KEY)
 
@@ -34,7 +34,7 @@ def download_gmaps_api(places, folder='../../data'):
         )
 
 
-def download_gmaps_web(places, folder='../../data'):
+def download_gmaps_web(places, folder='/content/drive/MyDrive/Deep-Learning-for-Solar-Panel-Recognition/src/data'):
     gmaps = GoogleMapsWebDownloader()
 
     for name, coords in places.items():
@@ -50,10 +50,14 @@ def download_gmaps_web(places, folder='../../data'):
 
 
 def main():
-    folder = '../../data'
+    folder = '/content/drive/MyDrive/Deep-Learning-for-Solar-Panel-Recognition/src/data'
     PLACES = {
         # 'mprincipe': [(40.4123, -3.854), (40.4054, -3.841)],
-        'leganes': [(40.34, -3.778), (40.337, -3.77)]
+        # 'leganes': [(40.34, -3.778), (40.337, -3.77)]
+        'IIT BHU final': [(25.2631, 82.9897), (25.2608, 82.9922)]
+        # 'Karnataka farm1_main': [(13.0947, 78.2825), (13.0911, 78.2894)]
+        # 'Karnataka farm2': [(13.0817, 78.2881), (13.0833, 78.2972)]
+
     }
 
     # download_sent2(folder)
