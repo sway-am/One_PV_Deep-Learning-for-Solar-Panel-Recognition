@@ -14,7 +14,7 @@ def download_sent2(folder):
 
 
 def download_gmaps_api(places, folder='/content/drive/MyDrive/Deep-Learning-for-Solar-Panel-Recognition/src/data'):
-    GMAPS_KEY = 'AIzaSyDwPAG5Yc1-LZyyOUp55LTROmfZlRtG2jM'
+    GMAPS_KEY = ''
 
     gmaps = GoogleMapsAPIDownloader(GMAPS_KEY)
 
